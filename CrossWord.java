@@ -5,56 +5,56 @@ public class CrossWord {
 		Scanner input = new Scanner(System.in);
 		int Case = 1;
 		while (true) {
-			int a = input.nextInt();
-			if (a == 0)
+			int noOfRows = input.nextInt();
+			if (noOfRows == 0)
 				break;
-			int b = input.nextInt();
+			int noOfCols = input.nextInt();
 
-			char[][] arrGrid = new char[a][b];
-			for (int i = 0; i < a; ++i)
-				arrGrid[i] = input.next().toCharArray();
+			char[][] arr = new char[noOfRows][noOfCols];
+			for (int row = 0; row < noOfRows; ++row)
+				arr[row] = input.next().toCharArray();
 
-			int cnt = 1;
-			int[][] grid = new int[a][b];
-			for (int i = 0; i < a; ++i)
-				for (int j = 0; j < b; ++j) {
-					if (arrGrid[i][j] == '*')
+			int count = 1;
+			int[][] grid = new int[noOfRows][noOfCols];
+			for (int row = 0; row < noOfRows; ++row)
+				for (int col = 0; col < noOfCols; ++col) {
+					if (arr[row][col] == '*')
 						continue;
-					else if ((j - 1 < 0 || i - 1 < 0) || (arrGrid[i][j - 1] == '*' || arrGrid[i - 1][j] == '*'))
-						grid[i][j] = cnt++;
+					else if ((col - 1 < 0 || row - 1 < 0) || (arr[row][col - 1] == '*' || arr[row - 1][col] == '*'))
+						grid[row][col] = count++;
 				}
 
 			if (Case > 1)
 				System.out.println();
 			System.out.println("puzzle #" + (Case++) + ":");
 			System.out.println("Across");
-			for (int i = 0; i < a; ++i)
-				for (int j = 0; j < b; ++j) {
-					if (arrGrid[i][j] == '*')
+			for (int row = 0; row < noOfRows; ++row)
+				for (int col = 0; col < noOfCols; ++col) {
+					if (arr[row][col] == '*')
 						continue;
-					cnt = j;
+					count = col;
 					String str = "";
-					while (cnt < b && arrGrid[i][cnt] != '*')
-						str += arrGrid[i][cnt++];
-					System.out.printf("%3d.%s\n", grid[i][j], str);
-					j = cnt;
+					while (count < noOfCols && arr[row][count] != '*')
+						str += arr[row][count++];
+					System.out.printf("%3d.%s\n", grid[row][col], str);
+					col = count;
 				}
 
-			boolean[][] bool = new boolean[a][b];
+			boolean[][] bool = new boolean[noOfRows][noOfCols];
 			System.out.println("Down");
-			for (int i = 0; i < a; ++i) {
-				for (int j = 0; j < b; ++j) {
-					if (arrGrid[i][j] == '*')
+			for (int row = 0; row < noOfRows; ++row) {
+				for (int col = 0; col < noOfCols; ++col) {
+					if (arr[row][col] == '*')
 						continue;
-					if (bool[i][j])
+					if (bool[row][col])
 						continue;
-					cnt = i;
-					String str = "";
-					while (cnt < a && arrGrid[cnt][j] != '*') {
-						bool[cnt][j] = true;
-						str += arrGrid[cnt++][j];
+					count = row;
+					String string = "";
+					while (count < noOfRows && arr[count][col] != '*') {
+						bool[count][col] = true;
+						string += arr[count++][col];
 					}
-					System.out.printf("%3d.%s\n", grid[i][j], str);
+					System.out.printf("%3d.%s\n", grid[row][col], string);
 				}
 			}
 
